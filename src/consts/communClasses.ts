@@ -1,0 +1,1 @@
+export const centerFlex = 'd-flex justify-content-center align-items-center';

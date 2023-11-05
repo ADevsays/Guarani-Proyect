@@ -1,0 +1,41 @@
+// Import all of Bootstrap's CSS
+@import "bootstrap/scss/bootstrap";
+
+@include media-breakpoint-up(lg) {
+    .glassmorphism, #glassImg{
+        display: block;
+    };
+    .register-card{
+        align-items: normal !important;
+    };
+    .register-card input{
+        width: auto !important;
+    };
+    .title-header{
+        padding: 0 !important;
+        margin-left: 0 !important;
+    }
+    .dropDown-margin{
+        margin-right: 17px !important;
+    }
+    .card_banner_products:first-child{
+        margin-right: 10px !important;
+        margin-bottom: 0px !important;
+    }
+    .card_banner_products:last-child{
+        margin-left: 10px !important;
+        margin-top: 0px !important;
+    }
+    .cultural_event_card{
+        width: 36% !important;
+    }
+    .center-form{
+        width: 500px !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important; 
+    }
+    .content-individual-publication div, .content-individual-publication h1{
+        width: 50% !important;
+    }
+  }
