@@ -13,6 +13,9 @@ export const useComments = defineStore('comments', {
         },
         addNewComment(comment: Comment){
             this.comments.push(comment);
+        },
+        deleteComment(id:string){
+            this.comments = this.comments.filter(comment=> String(comment.id) != id);
         }
     }
 });

@@ -22,7 +22,6 @@ const getComments = ()=>{
 const getUserName = (id:string)=>{
     const userName = allUsersStore.getOneUser(id);
     if(!userName) return 'Usuario'
-    console.log(userName.user_name)
     return userName?.user_name;
 };
 
@@ -37,6 +36,7 @@ const getUserName = (id:string)=>{
             <Comment 
                 v-show="getComments()" 
                 v-for="comment in comments"
+                :id="String(comment.id)"
                 :name="(getUserName(String(comment.user)) as string)"
                 :content="comment.description"
                 :date="getDescriptionTime(comment.start_date)"/>

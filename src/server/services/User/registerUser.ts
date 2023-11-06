@@ -1,5 +1,5 @@
 import {url} from '../../url.ts';
-import { serverErrors } from '../../../consts/errors.ts';
+import { manageError } from '../../../helpers/manageError.ts';
 
 const configFetchRegister = {
     method: 'POST', 
@@ -18,11 +18,7 @@ export async function registerUser(userData: DataToRegister, role?:RoleString){
         });
         return result;
     } catch (error) {
-        if (error instanceof TypeError && error.message === "Failed to fetch") {
-            console.error(serverErrors.conectionError);
-        } else {
-            console.error("Error en la solicitud:", error);
-        }
+        manageError(error);
     }
    
 }

@@ -1,4 +1,4 @@
-import { serverErrors } from "../../../consts/errors";
+import { manageError } from "../../../helpers/manageError";
 import { url } from "../../url";
 
 export async function editUser(userData: DataToEdit, token:string){
@@ -15,10 +15,6 @@ export async function editUser(userData: DataToEdit, token:string){
         });
         return result;
     } catch (error) {
-        if (error instanceof TypeError && error.message === "Failed to fetch") {
-            console.error(serverErrors.conectionError);
-        } else {
-            console.error("Error en la solicitud:", error);
-        }
+        manageError(error);
     }
 }

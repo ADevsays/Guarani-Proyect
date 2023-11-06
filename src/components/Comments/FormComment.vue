@@ -16,7 +16,6 @@ const route = useRoute();
 
 onMounted(()=>{
     id.value = route.params.id as string;
-    console.log(user)
 });
 
 const handleChange=(e:Event)=>{
@@ -48,7 +47,7 @@ const handleSubmit= async ()=>{
             <span class="ms-1">
                  {{user?.user_name}}
             </span>
-            <RouterLink class="w-100 btn btn-primary py-3" v-if="!user" to="/login">¿Quieres comentar? ¡Inicia sesión!</RouterLink>
+            <RouterLink class="w-100 btn btn-primary py-3 fw-medium" v-if="!user" to="/login">¿Quieres comentar? ¡Inicia sesión!</RouterLink>
             <input :value="commentValue" v-else @input="handleChange" class="mt-1 w-100 remove-outline rounded-3 p-3 border shadow-sm" type="text" placeholder="¿Qué opinas sobre esto?">
             <button :disabled="commentValue == ''" class="btn btn-primary mt-3 position-absolute end-0" style="bottom: -50px;">Publicar</button>
         </label>

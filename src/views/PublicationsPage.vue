@@ -37,7 +37,6 @@ onMounted(async ()=>{
         roleUser.value = user.value?.rol;
     };
     const allPublications = await getAllPublications();
-    console.log(allPublications[0])
     if(allPublications){
         publicationsStore.setAllPublications(allPublications);
     }

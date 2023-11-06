@@ -5,9 +5,11 @@ import { maxLengthContentCardText } from '../../consts/maxLengthContentCardText.
 import { computed, onMounted,ref } from 'vue';
 import loadImg from '../../helpers/loadImg.ts';
 import useGetUser from '../../composables/useGetUser.ts';
-// import PencilIcon from '../SVG/PencilIcon.vue';
-import ThreePointsIcon from '../SVG/ThreePointsIcon.vue';
-import { centerFlex } from '../../consts/communClasses';
+import ButtonOptions from './ButtonOptions.vue';
+import {usePublications} from '../../store/usePublications.ts';
+import {deleteObjectVirtual} from '../../server/services/ObjectVirtual/deleteObjectVirtual.ts';
+import { getToken } from '../../helpers/saveToken';
+import { tokenName } from '../../consts/userToken';
 
 const props = defineProps<{
     id: string,
@@ -18,6 +20,8 @@ const props = defineProps<{
     place: string
 }>();
 
+const publicationsStore = usePublications();
+const token = getToken(tokenName);
 const {user} = useGetUser();
 const emit = defineEmits(['openEdit']);
 const isLoad = ref(false);
@@ -57,23 +61,41 @@ const getTags= computed(()=>{
 
 const handleEditPublication = () => {
     emit('openEdit', {content:'edit', value:true, id:props.id});
-}
+};
+
+const deletePublication = async ()=>{
+    const confirmDelete = confirm('¿Está seguro de que desea eliminar esta publicación? ¡Esto no se puede deshacer!');
+    if(!confirmDelete) return;
+    try {
+        if(!token) return;
+        const result = await deleteObjectVirtual(token, props.id);
+        const deletePublication = await result?.json();
+        if(deletePublication.message){
+            publicationsStore.deletePublication(props.id);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 const checkRolUser = computed(()=>{
     if(user.value){
-        return user.value.rol == 'admin' || user.value.rol == 'editor';
+        return user.value.rol == 'admin' 
+              || user.value.rol == 'editor';
     }
 });
 
 </script>
 <template>
     <div class="position-relative h-100 p-0 mb-3">
-        <span v-if="checkRolUser" @click="handleEditPublication" :class="centerFlex" class="position-absolute p-1 rounded edit-button">
-            <ThreePointsIcon/>
-        </span>
+        <ButtonOptions
+            :check-rol-user="checkRolUser"
+            @edit-publication="handleEditPublication"
+            @delete-publication="deletePublication"
+        />
         <RouterLink class="nav-link" :to="`/publicaciones/${props.id}`">
             <div class="card text-start  hover-event-cards hover-event-card" style="width: 18rem;">
-                <img class="rounded-top object-fit-cover" style="max-height: 160px;" :alt="props.title" :src="getImg">
+                <img class="user-select-none rounded-top object-fit-cover" style="max-height: 160px;" :alt="props.title" :src="getImg">
                 <div class="card-body position-relative" style="min-height: 240px;">
                     <h5 class="card-title m-0">{{ getTitle }}</h5>
                     <p style="font-size: .8em;" class="p-0 m-0 text-secondary">{{ getPlace }}</p>

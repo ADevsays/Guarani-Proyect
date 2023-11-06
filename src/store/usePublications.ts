@@ -25,6 +25,10 @@ export const usePublications = defineStore('allPublications', {
                 return publication;
             })
             this.publications = publicationsUpdate  as ObjectVirtual[];
+        },
+        deletePublication(id:string){
+            this.publications = this.publications
+                        .filter(publications=> publications.id != id);
         }
     }
 });

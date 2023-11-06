@@ -1,5 +1,5 @@
 import {url} from '../../url.ts';
-import { serverErrors } from '../../../consts/errors.ts';
+import { manageError } from '../../../helpers/manageError.ts';
 
 export async function loginUser(userData: DataToLogin){
     const registerUrl = `${url}/user/post/login/`;
@@ -14,11 +14,7 @@ export async function loginUser(userData: DataToLogin){
         });
         return result;
     } catch (error) {
-        if (error instanceof TypeError && error.message === "Failed to fetch") {
-            console.error(serverErrors.conectionError);
-        } else {
-            console.error("Error en la solicitud:", error);
-        }
+        manageError(error);
     }
    
 }

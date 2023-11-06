@@ -17,7 +17,6 @@ const route = useRoute();
 const router = useRouter();
 const publication = ref({} as ObjectVirtual);
 const isLoad = ref(false);
-const comments = ref([] as Comment[]);
 const {getUsers} = useGetAllUsers();
 
 onMounted(async () => {
@@ -26,7 +25,6 @@ onMounted(async () => {
         const publi = await result.json();
         publication.value = publi.digital_object;
         commentsStore.setComments(publi.comments);
-        comments.value = commentsStore.getComments()
     }
     isLoad.value = false;
     if (publication.value.url) {
@@ -40,6 +38,12 @@ const getImg = computed(() => {
     if (!publication.value.url) return PlaceholderImg;
     if (isLoad.value) return publication.value.url;
     return PlaceholderImg;
+});
+
+const getComments = computed(()=>{
+    if(commentsStore.getComments()){
+        return commentsStore.getComments()
+    }
 });
 
 const getContent = computed(() => {
@@ -73,6 +77,6 @@ const backRoute = () => {
                 <MetaTag v-for="tag in turnTagsToArray">{{ tag }}</MetaTag>
             </div>
         </div>
-        <AllComments :comments="comments"/>
+        <AllComments :comments="(getComments as Comment[])"/>
     </main>
 </template>
