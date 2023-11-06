@@ -8,6 +8,7 @@ import { registerUser } from '../../server/services/User/registerUser.ts';
 import { useSessionUser } from '../../store/userSession.ts';
 import { saveToken } from '../../helpers/saveToken.ts';
 import { ref, reactive, onMounted } from 'vue';
+import ButtonForm from './ButtonForm.vue';
 
 const props = defineProps<{ password: { state: boolean, rol: RoleString } }>();
 const userStore = useSessionUser();
@@ -19,7 +20,7 @@ const userData: DataToRegister = reactive({
 });
 const stateRole = ref<RoleString>('');
 const errorMsg = ref('');
-
+const loadUser = ref(true);
 onMounted(() => {
     stateRole.value = props.password.rol;
 });
@@ -59,7 +60,9 @@ const handleChange = (e: Event) => {
 
 const handleRegister = async () => {
     try {
+        loadUser.value = false;
         const result = await registerUser(userData, stateRole.value);
+        loadUser.value = true;
         if (!result) {
             showError('Parece que hubo un error con el servidor');
             return;
@@ -70,6 +73,7 @@ const handleRegister = async () => {
             showError('Esta cuenta de correo ya existe');
             return;
         };
+        loadUser.value = true;
         saveToken(user.token, 'user_token');
         userStore.setUser(user);
         window.location.href = "/";
@@ -77,7 +81,6 @@ const handleRegister = async () => {
         console.error(error);
     }
 };
-
 
 </script>
 <template>
@@ -94,7 +97,10 @@ const handleRegister = async () => {
         </label>
         <EmailPassword @get-email-password="getPasswordEmail" />
         <AdminRoleRegister v-if="props.password.rol != ''" @set-option-state="getRole" />
-        <button class="mt-3 btn btn-primary">Comenzar experiencia</button>
+        <ButtonForm 
+            style="min-width: 190px;"  
+            text="Comenzar experiencia"
+            :load-user="loadUser"/>
         <ErrorMsg :error-msg="errorMsg" />
     </form>
 </template>

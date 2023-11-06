@@ -8,6 +8,7 @@ import {getObjectVirtual} from '../server/services/ObjectVirtual/getObjectVirtua
 import {ref, onMounted, watch, computed} from 'vue';
 import AllPublications from '../components/Publications/AllPublications.vue';
 import useGetAllUsers from '../composables/useGetAllUsers.ts';
+import Spinner from '../components/Spinner.vue';
 
 const userStore = useSessionUser();
 const {getUsers} = useGetAllUsers();
@@ -20,6 +21,7 @@ const openModal = ref({
 });
 const editID = ref('');
 const serverError = ref(false);
+const loadPublications = ref(false);
 
 const getAllPublications= async ()=>{
     const result = await getObjectVirtual();
@@ -37,6 +39,7 @@ onMounted(async ()=>{
         roleUser.value = user.value?.rol;
     };
     const allPublications = await getAllPublications();
+    loadPublications.value=true;
     if(allPublications){
         publicationsStore.setAllPublications(allPublications);
     }
@@ -74,7 +77,8 @@ const checkIfIsAdmin= computed(()=>{
         <FormUpload v-if="openModal.state" @close-modal="closeModalFn" :type="openModal.content" :id="editID"/>
         <div :class="centerFlex" class="flex-column">
             <button v-if="checkIfIsAdmin" @click="openModalFn({content:'upload', value:true})" class="w-50 btn btn-primary m-3">Subir publicación</button>
-            <div class="mt-3 text-center">
+            <Spinner border-color="#09f" v-if="!loadPublications"/>
+            <div class="mt-3 text-center" v-else>
                 <p v-show="serverError">Parece que hubo algún <span class="text-danger">problema</span> con el servidor, no se han podido recuperar las publicaciones</p>
                 <AllPublications v-show="!serverError" @open-edit="openModalFn"/>
             </div>

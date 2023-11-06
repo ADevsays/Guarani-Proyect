@@ -6,6 +6,7 @@ import YouProfilePage from '../views/YouProfilePage.vue';
 import AlreadyYouHaveUserPage from '../views/AlreadyYouHaveUserPage.vue';
 import { getToken } from '../helpers/saveToken';
 import { changePathToTitle } from '../helpers/changePathToTitle';
+import checkThereAreID from '../helpers/checkThereAreId';
 
 const defaultTitle = 'Asamblea del pueblo Guaraní';
 const routes = [] as RouteRecordRaw[];
@@ -82,10 +83,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _from, next)=>{
-  if(to.meta.title && to.meta.title != `undefined - ${defaultTitle}`){
-    document.title = to.meta.title as string;
-  }else{
-    document.title = defaultTitle;
+  const title = to.meta.title;
+  if(title 
+    && title != `undefined - ${defaultTitle}`
+    && !checkThereAreID(title as string)){
+    document.title = title as string;
   }
   const metaDescription = document.querySelector('meta[name="description"]');
   if(metaDescription){

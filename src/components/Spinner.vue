@@ -1,5 +1,12 @@
+<script setup lang="ts">
+const props = defineProps({
+  borderColor:{
+    type:String, default:'#fff'
+  }
+})
+</script>
 <template>
-    <span class="loader"></span>
+    <span class="loader" :style="{'--border-color': props.borderColor}"></span>
 </template>
 
 <style scoped>
@@ -16,7 +23,7 @@
       position: absolute;
       inset: 0px;
       border-radius: 50%;
-      border: 5px solid #FFF;
+      border: 5px solid var(--border-color, red);
       animation: prixClipFix 2s linear infinite ;
     }
 
