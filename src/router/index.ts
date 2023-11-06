@@ -5,8 +5,8 @@ import Error404Page from '../views/Error404Page.vue';
 import YouProfilePage from '../views/YouProfilePage.vue';
 import AlreadyYouHaveUserPage from '../views/AlreadyYouHaveUserPage.vue';
 import { getToken } from '../helpers/saveToken';
-import { changePathToTitle } from '../helpers/changePathToTitle';
-import checkThereAreID from '../helpers/checkThereAreId';
+import { changePathToTitle } from '../helpers/changePathToTitle.ts';
+import checkThereAreID from '../helpers/checkThereAreId.ts';
 
 const defaultTitle = 'Asamblea del pueblo Guaraní';
 const routes = [] as RouteRecordRaw[];
