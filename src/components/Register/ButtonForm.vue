@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { centerFlex } from '../../consts/communClasses';
+import Spinner from '../Spinner.vue';
 
 const props = defineProps({
     loadUser:{
