@@ -28,11 +28,11 @@ export default function useFormPublication(props: { id: string }) {
             console.log(props.id)
             const result = await getObjectVirtual(props.id);
             const publication = await result?.json();
-            const keysPublication = Object.keys(publication);
+            const keysPublication = Object.keys(publication.digital_object);
             keysPublication.forEach(key => {
                 if (key in objVData.value) {
                     const typeKey = key as keyof DataToPostObjV;
-                    objVData.value[typeKey] = publication[key];
+                    objVData.value[typeKey] = publication.digital_object[key];
                 }
             });
         } else {

@@ -5,7 +5,8 @@ import { maxLengthContentCardText } from '../../consts/maxLengthContentCardText.
 import { computed, onMounted,ref } from 'vue';
 import loadImg from '../../helpers/loadImg.ts';
 import useGetUser from '../../composables/useGetUser.ts';
-import PencilIcon from '../SVG/PencilIcon.vue';
+// import PencilIcon from '../SVG/PencilIcon.vue';
+import ThreePointsIcon from '../SVG/ThreePointsIcon.vue';
 import { centerFlex } from '../../consts/communClasses';
 
 const props = defineProps<{
@@ -68,7 +69,7 @@ const checkRolUser = computed(()=>{
 <template>
     <div class="position-relative h-100 p-0 mb-3">
         <span v-if="checkRolUser" @click="handleEditPublication" :class="centerFlex" class="position-absolute p-1 rounded edit-button">
-            <PencilIcon/>
+            <ThreePointsIcon/>
         </span>
         <RouterLink class="nav-link" :to="`/publicaciones/${props.id}`">
             <div class="card text-start  hover-event-cards hover-event-card" style="width: 18rem;">

@@ -1,4 +1,5 @@
 type RoleString = 'admin' | 'editor' | '';
+type HTMLRef = null | HTMLElement;
 
 type User = {
     id:string;
@@ -55,5 +56,12 @@ interface VirtualReality extends ObjectVirtual{
     [key: string]: any
 }
 
-type HTMLRef = null | HTMLElement;
+
+interface Comment {
+    id:number, 
+    user: number,
+    description:string, 
+    digital_object:number, 
+    start_date:string
+}
 

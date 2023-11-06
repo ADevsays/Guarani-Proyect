@@ -7,8 +7,10 @@ import { useSessionUser } from '../store/userSession';
 import {getObjectVirtual} from '../server/services/ObjectVirtual/getObjectVirtuals.ts';
 import {ref, onMounted, watch, computed} from 'vue';
 import AllPublications from '../components/Publications/AllPublications.vue';
+import useGetAllUsers from '../composables/useGetAllUsers.ts';
 
 const userStore = useSessionUser();
+const {getUsers} = useGetAllUsers();
 const publicationsStore = usePublications();
 const user = ref({} as User);
 const roleUser = ref('' as RoleString);
@@ -21,12 +23,12 @@ const serverError = ref(false);
 
 const getAllPublications= async ()=>{
     const result = await getObjectVirtual();
-    if(result){
-        const publications = await result.json();
-        return publications;
-    }else{
+    if(!result) {
         serverError.value = true;
+        return;
     }
+    const publications = await result.json();
+    return publications;  
 };
 
 onMounted(async ()=>{
@@ -35,9 +37,11 @@ onMounted(async ()=>{
         roleUser.value = user.value?.rol;
     };
     const allPublications = await getAllPublications();
+    console.log(allPublications[0])
     if(allPublications){
         publicationsStore.setAllPublications(allPublications);
     }
+    getUsers();
 });
 
 watch(

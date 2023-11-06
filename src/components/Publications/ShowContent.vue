@@ -15,7 +15,6 @@ const checkThereIsSubtitle=()=>{
         thereIsSubtitle.value = true;
         const cleanText = coincidences[0].replace(regex, '$1');
         subtitle.value = cleanText;
-        console.log(cleanText)
     }
 };
 
