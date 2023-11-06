@@ -36,7 +36,7 @@ const {user} = useGetUser();
     background-image: linear-gradient(to right,
             rgba(244, 255, 97, 0.1),
             rgba(255, 241, 159, 0.1)),
-        url('../imgs/Background_home.jpg');
+        url('../imgs/Background_home.webp');
     background-size: cover;
     background-position: 0 center;
     height: 90vh;

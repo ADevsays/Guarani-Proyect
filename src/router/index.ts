@@ -5,7 +5,9 @@ import Error404Page from '../views/Error404Page.vue';
 import YouProfilePage from '../views/YouProfilePage.vue';
 import AlreadyYouHaveUserPage from '../views/AlreadyYouHaveUserPage.vue';
 import { getToken } from '../helpers/saveToken';
+import { changePathToTitle } from '../helpers/changePathToTitle';
 
+const defaultTitle = 'Asamblea del pueblo Guaraní';
 const routes = [] as RouteRecordRaw[];
 type RouteMethodParams = [
   _to: RouteLocationNormalized,
@@ -13,10 +15,14 @@ type RouteMethodParams = [
   next: NavigationGuardNext
 ];
 
-routesArray.forEach(({ path }, index) => {
+routesArray.forEach((route, index) => {
   const routeObj = {
-    path: path,
+    path: route.path,
     component: pages[index],
+    meta:{
+      title: `${changePathToTitle(route.path)} - ${defaultTitle}`,
+      description: route.description
+    }
   }
   const loginRegisterObj = {
     ...routeObj,
@@ -30,9 +36,9 @@ routesArray.forEach(({ path }, index) => {
       }
     }
   }
-  const objUse = path != '/login'
-    && path != '/registro'
-    && path != '/registro/admin';
+  const objUse = route.path != '/login'
+    && route.path != '/registro'
+    && route.path != '/registro/admin';
   routes.push(objUse ? routeObj : loginRegisterObj);
 });
 routes.push({
@@ -52,7 +58,7 @@ routes.push({
 routes.push({
   path: '/tu_cuenta',
   component: YouProfilePage,
-  meta:{requiresAuth:true},
+  meta:{requiresAuth:true, title:'Tu cuenta'},
   beforeEnter: (...params:RouteMethodParams) => {
     const [, , next] = params;
     const isAuthenticated = getToken('user_token');
@@ -73,6 +79,19 @@ routes.push({
 const router = createRouter({
   history: createWebHistory(),
   routes
+});
+
+router.beforeEach((to, _from, next)=>{
+  if(to.meta.title && to.meta.title != `undefined - ${defaultTitle}`){
+    document.title = to.meta.title as string;
+  }else{
+    document.title = defaultTitle;
+  }
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if(metaDescription){
+    metaDescription.setAttribute('content', to.meta.description as string)
+  }
+  next();
 });
 
 router.afterEach(() => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BgImg from '../../imgs/Background_login.jpg';
+import BgImg from '../../imgs/Background_login.webp';
 
 </script>
 <template>

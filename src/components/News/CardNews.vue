@@ -12,7 +12,7 @@ const props = defineProps({
         <div style="width: 250px; height: auto;" class="shadow">
             <div style="min-height: 160px;">
                 <img class="w-100 h-100 rounded-top-2 object-fit-cover "
-                    src="https://www.unicef.org/colombia/sites/unicef.org.colombia/files/styles/hero_tablet/public/UN0801105.jpg?itok=rTpWSQVo"
+                    src="https://artesaniasdecolombia.com.co/Documentos/Contenido/20525_molas-g.jpg"
                     alt="">
             </div>
             <div class="bg-white text-black p-2 pb-4 rounded-bottom">
