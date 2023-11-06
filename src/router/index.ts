@@ -6,7 +6,11 @@ import YouProfilePage from '../views/YouProfilePage.vue';
 import AlreadyYouHaveUserPage from '../views/AlreadyYouHaveUserPage.vue';
 import { getToken } from '../helpers/saveToken';
 import { changePathToTitle } from '../helpers/changePathToTitle.ts';
-import {checkIsID} from '../helpers/checkErrorPath.ts';
+
+function checkIsID(path:string){
+  const regex = /id/;
+  return regex.test(path);
+}
 
 const defaultTitle = 'Asamblea del pueblo Guaraní';
 const routes = [] as RouteRecordRaw[];
