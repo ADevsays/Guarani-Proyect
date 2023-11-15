@@ -13,13 +13,13 @@ import TitlePage from '../components/TitlePage.vue';
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis quo ipsam rerum assumenda iste perspiciatis cum magnam hic laboriosam dolor.</p>
             </div>
             <div class="col-12 col-md-6 justify-content-center align-items-center d-flex" style="width: 560px;">
-                <img class="w-100 h-100 rounded object-fit-cover" src="https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/Libraries/Production%20Library/08-08-2023-UNICEF-Indigenous-Ayacucho.jpg/image1170x530cropped.jpg" alt="">
+                <img loading="lazy" style="min-height: 220px;" class="bg-secondary-subtle w-100 border h-100 rounded object-fit-cover" src="https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/Libraries/Production%20Library/08-08-2023-UNICEF-Indigenous-Ayacucho.jpg/image1170x530cropped.jpg" alt="">
             </div>
         </div>
 
         <div class="row justify-content-between mt-5">
             <div class="col-12 col-md-6 justify-content-center align-items-center d-flex" style="width: 560px;">
-                <img class="w-100 h-100 rounded object-fit-cover" src="https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/Libraries/Production%20Library/08-08-2023-UNICEF-Indigenous-Ayacucho.jpg/image1170x530cropped.jpg" alt="">
+                <img loading="lazy" style="min-height: 220px;" class=" bg-secondary-subtle  w-100 border h-100 rounded object-fit-cover" src="https://global.unitednations.entermediadb.net/assets/mediadb/services/module/asset/downloads/preset/Libraries/Production%20Library/08-08-2023-UNICEF-Indigenous-Ayacucho.jpg/image1170x530cropped.jpg" alt="">
             </div>
             <div class="col-12 col-md-6">
                 <h4 class="text-primary">Más datos</h4>

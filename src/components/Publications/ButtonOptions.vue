@@ -14,6 +14,7 @@ const emit = defineEmits(['editPublication', 'deletePublication']);
 const {user} = useGetUser();
 const stateOptionsButtons = ref(false);
 const changeStateButtons = (e:Event) => {
+    e.stopPropagation();
     stateOptionsButtons.value = !stateOptionsButtons.value;
     const main = document.querySelector('main');
     const threeOptionsButton = e.target;
@@ -45,10 +46,10 @@ const getRolUser=()=>{
             :class="centerFlex"
             class="bg-transparent flex-column position-absolute rounded"
             style="top: -17px; left: 25px; width:50px;">
-            <span @click="editPublication" class="w-100 h-100 bg-dark rounded-top pb-1 options-button">
+            <span @click="editPublication" class="w-100 h-100 bg-dark text-center rounded-top pb-1 options-button">
                 <PencilIcon />
             </span>
-            <span v-if="getRolUser()" @click="deletePublication" class="w-100 h-100 bg-dark pb-1 border-top rounded-bottom options-button">
+            <span v-if="getRolUser()" @click="deletePublication" class="w-100 h-100 bg-dark text-center pb-1 border-top rounded-bottom options-button">
                 <TrashIcon />
             </span>
         </div>

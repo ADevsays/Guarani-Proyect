@@ -2,9 +2,6 @@
 @import "bootstrap/scss/bootstrap";
 
 @include media-breakpoint-up(lg) {
-    .glassmorphism, #glassImg{
-        display: block;
-    };
     .register-card{
         align-items: normal !important;
     };
@@ -35,7 +32,10 @@
         left: 50% !important;
         transform: translate(-50%, -50%) !important; 
     }
-    .content-individual-publication div:not(.comment), .content-individual-publication h1{
+    .content-individual-publication div:not(.comment), 
+    .content-individual-publication h1{
         width: 50% !important;
     }
   }
+
+

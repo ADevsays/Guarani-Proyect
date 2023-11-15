@@ -9,6 +9,8 @@ import {ref, onMounted, watch, computed} from 'vue';
 import AllPublications from '../components/Publications/AllPublications.vue';
 import useGetAllUsers from '../composables/useGetAllUsers.ts';
 import Spinner from '../components/Spinner.vue';
+import typesFormPublication from '../consts/typesFormPublication';
+import {get3dAllObjects} from '../server/services/ObjectVirtual/get3dAllObjects.ts'
 
 const userStore = useSessionUser();
 const {getUsers} = useGetAllUsers();
@@ -16,7 +18,7 @@ const publicationsStore = usePublications();
 const user = ref({} as User);
 const roleUser = ref('' as RoleString);
 const openModal = ref({
-    content: 'upload',
+    content: typesFormPublication.UPLOAD,
     state: false
 });
 const editID = ref('');
@@ -33,16 +35,31 @@ const getAllPublications= async ()=>{
     return publications;  
 };
 
+const getAllVirtualReality=async () => {
+    const result = await get3dAllObjects();
+    if(!result) {
+        serverError.value = true;
+        return;
+    }
+    const virtualReality = await result.json();
+    return virtualReality; 
+}
+
 onMounted(async ()=>{
     user.value = userStore.getUser();
     if(user.value){
         roleUser.value = user.value?.rol;
     };
     const allPublications = await getAllPublications();
-    loadPublications.value=true;
-    if(allPublications){
+    const all3d = await getAllVirtualReality();
+    if(all3d){
+        const concatVRPlusPublications = [...allPublications, ...all3d];
+        publicationsStore.setAllPublications(concatVRPlusPublications);
+    }
+    else if(allPublications){
         publicationsStore.setAllPublications(allPublications);
     }
+    loadPublications.value=true;
     getUsers();
 });
 
@@ -90,4 +107,5 @@ const checkIfIsAdmin= computed(()=>{
 body{
     position: relative;
 }
+
 </style>

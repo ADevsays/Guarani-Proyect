@@ -7,7 +7,8 @@ const props = defineProps({
         type: Boolean, default:false
     }, 
     text: String
-})
+});
+
 </script>
 <template>
     <button class="mt-3 btn btn-primary" :class='centerFlex' >

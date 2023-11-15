@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-    <label class="d-flex flex-column fw-medium">
+    <label class="d-flex flex-column fw-medium mb-0">
         {{props.label}}
         <input 
             :value="props.value" 

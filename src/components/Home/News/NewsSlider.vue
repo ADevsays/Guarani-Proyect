@@ -1,22 +1,35 @@
 <script setup lang="ts">
 import { register } from 'swiper/element/bundle';
 import NewsCard from './NewsCard.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed} from 'vue';
 import {resizeLogic} from '../../../helpers/resizeLogic.ts';
 import {type SlidesPerView} from '../../../helpers/resizeLogic.ts';
+import { useAllNews } from '../../../store/useAllNews';
 register();
-const news = ref([1,2,3,34,4,5,6,6,7,7]);
 const viewWidth = ref(0);
 const numberOfCards = ref({} as SlidesPerView);
+const newsStore = useAllNews();
+const news = ref([] as NewData[]);
+
 onMounted(()=>{
   viewWidth.value = document.documentElement.clientWidth;
   numberOfCards.value = resizeLogic(viewWidth.value);
+  news.value = newsStore.getNews();
 });
 
 window.addEventListener('resize', ()=>{
   viewWidth.value = document.documentElement.clientWidth;
   numberOfCards.value = resizeLogic(viewWidth.value);
 });
+
+const getNews = computed(()=>{
+  if(news.value.length > 10){
+    const cutArr = news.value.splice(0, 10);
+    return cutArr;
+  }
+  return news.value;
+});
+
 </script>
 <template>
       <swiper-container 
@@ -28,8 +41,13 @@ window.addEventListener('resize', ()=>{
             loop="true" 
             speed="500"
             autoplay-delay="2500">
-            <swiper-slide v-for="_ in news">
-              <NewsCard/>
+            <swiper-slide v-for="userNew in getNews">
+              <NewsCard
+                :link="`/noticias/${userNew.id}`"
+                :content="userNew.description"
+                :title="userNew.title"  
+                :img="userNew.url"
+              />
             </swiper-slide>
         </swiper-container>
 </template>

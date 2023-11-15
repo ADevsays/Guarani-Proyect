@@ -105,8 +105,12 @@ const getValueInput = (key: string) => {
             <h3 style="color: rgb(0, 0, 41);" class="w-100 fw-bold fs-2 text-center mt-4">Edita tu <span
                     class="text-primary">usuario</span> </h3>
             <form class="w-75" @submit.prevent="handleEditUser">
-                <InputFormEdit v-for="input in inputsForm" :handle-change="handleChange" :label="input.label"
-                    :name="input.name" :value="getValueInput(input.name)" :placeholder="input.placeholder"
+                <InputFormEdit v-for="input in inputsForm" 
+                    :handle-change="handleChange" 
+                    :label="input.label"
+                    :name="input.name" 
+                    :value="getValueInput(input.name)" 
+                    :placeholder="input.placeholder"
                     :type="input.type" />
                 <button class="mt-3 btn btn-primary">Editar usuario</button>
             </form>

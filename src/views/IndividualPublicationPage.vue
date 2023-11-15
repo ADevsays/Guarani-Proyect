@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import { onMounted } from 'vue';
 import { ref, computed } from 'vue';
 import { getObjectVirtual } from '../server/services/ObjectVirtual/getObjectVirtuals.ts';
@@ -20,16 +20,21 @@ const router = useRouter();
 const publication = ref({} as ObjectVirtual);
 const isLoadImg = ref(false);
 const isLoadContent = ref(false);
+const serverError = ref(false);
 const { getUsers } = useGetAllUsers();
 
 onMounted(async () => {
     const result = await getObjectVirtual(route.params.id)
-    if (result) {
-        const publi = await result.json();
-        publication.value = publi.digital_object;
-        commentsStore.setComments(publi.comments);
+    if (!result) return;
+    if(result.status == 404){
+        serverError.value = true;
         isLoadContent.value = true;
+        return;
     }
+    const publi = await result.json();
+    publication.value = publi.digital_object;
+    commentsStore.setComments(publi.comments);
+    isLoadContent.value = true;
     isLoadImg.value = false;
     if (!publication.value.url) return;
     if (!getContent.value) return;
@@ -59,7 +64,8 @@ const getContent = computed(() => {
 });
 
 const turnTagsToArray = computed(() => {
-    return publication.value?.tag?.split(' ');
+    const separateTags = publication.value?.tag?.split(' ');
+    return separateTags.filter(tag=>tag);
 });
 
 const backRoute = () => {
@@ -70,7 +76,11 @@ const backRoute = () => {
 <template>
     <main :class="centerFlex" class="w-100 p-5 flex-column content-individual-publication" style="min-height: 100vh;">
         <Spinner border-color="#09f" v-if="!isLoadContent" />
-        <template v-else>
+        <div v-if="serverError && isLoadContent" class="w-100 flex-column" :class="centerFlex">
+            <p>Parece que hubo un error, vuelve atrás.</p>
+            <RouterLink to="/publicaciones" class="btn btn-primary" style="min-width: 120px;">Volver</RouterLink>
+        </div>
+        <template v-if="isLoadContent && !serverError">
             <h1 class="m-3 text-center">{{ publication.title }}</h1>
             <div class="w-100 m-3">
                 <img class="w-100 h-100 object-fit-contain" :src="getImg" :alt="publication.title"

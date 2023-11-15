@@ -67,18 +67,5 @@ const checkAdminPassword=(state:{state:boolean, rol:RoleString})=>{
     background-size: cover;
     height: 100vh;
 }
-
-.glassmorphism {
-    background-color: rgba(0, 0, 0, 0.45);
-    box-shadow: 0 0 10px 1px rgba(0, 10, 20, 0.25);
-    backdrop-filter: blur(15px);
-    display: none;
-    opacity: .5;
-}
-
-#glassImg{
-    display: none;
-}
-
 </style>
 

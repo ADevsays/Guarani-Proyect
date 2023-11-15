@@ -11,6 +11,11 @@ const getPublications = computed(()=>{
     return 'No se han encontrado publicaciones...';
 });
 
+const getImage = (image:any)=>{
+    return image ?? '';
+};
+
+
 const turnTagsToArray = (publication: ObjectVirtual)=>{
     return publication.tag.split(' ');
 };
@@ -28,10 +33,11 @@ const handleEditPublication=(value:boolean)=>{
             v-for="publication in publications"
             :title="publication.title"
             :content="publication.description"
-            :img="publication.url"
+            :URL="publication.url"
             :place="publication.place"
             :id="String(publication.id)"
-            :tags="turnTagsToArray(publication)"/>
+            :tags="turnTagsToArray(publication)"
+            :image="getImage(publication.image)"/>
         <p v-else>{{getPublications}}</p>
     </div>
 </template>

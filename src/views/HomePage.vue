@@ -3,9 +3,28 @@ import FormSearchMain from '../components/Home/FormSearchMain.vue';
 import LastNews from '../components/Home/News/LastNews.vue';
 import BannerCreateAccount from '../components/Home/BannerCreateAccount.vue';
 import BannerProducts from '../components/Home/Products/BannerProducts.vue';
-import BannerCulturalEvent from  '../components/Home/CulturalEvent/BannerCulturalEvent.vue'
+import BannerHistories from  '../components/Home/CulturalEvent/BannerHistories.vue'
 import useGetUser from '../composables/useGetUser.ts';
+import { onMounted } from 'vue';
+import { useSearch } from '../store/useSearch';
+import { getObjectVirtual } from '../server/services/ObjectVirtual/getObjectVirtuals.ts';
 const {user} = useGetUser();
+const searchStore = useSearch();
+
+const setAllPublicationsToSearch = async ()=>{
+    try {
+        const result = await getObjectVirtual();
+        if(!result) throw new Error('No se han obtenido publicaciones');
+        const publications = await result.json();
+        searchStore.setAllSearch(publications, 'publications')
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+onMounted(()=>{
+    setAllPublicationsToSearch();
+});
 
 </script>
 <template>
@@ -20,8 +39,8 @@ const {user} = useGetUser();
         <LastNews/>
         <BannerCreateAccount :to="user ? '/tu_cuenta' : '/registro'" title="Ingresa ahora a nuestra comunidad" text="Para poder comentar las últimas publicaciones" button="Crea una cuenta"/>
         <BannerProducts/>
-        <BannerCulturalEvent/>
-        <BannerCreateAccount class="px-5" to="/directos" title="Los últimos directos" text="Entérate de información exclusiva desde nuestros en vivos" button="Ver directos"/>
+        <BannerHistories/>
+        <BannerCreateAccount class="px-5" to="/publicaciones" title="Las últimas publicaciones" text="Entérate de información exclusiva desde nuestras publicaciones" button="Ver publicaciones"/>
         <RouterLink to="/contacto" class="btn btn-dark p-3">¡CONTÁCTANOS!</RouterLink >
     </main>
 </template>

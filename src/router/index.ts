@@ -81,6 +81,15 @@ routes.push({
   component: Error404Page
 });
 
+routes.push({
+  path: '/imagen3D/:id',
+  component: ()=> import('../views/IndividualVirtualRealityPage.vue'),
+  meta:{
+    title: `Realidad Virtual - ${defaultTitle}`,
+    // description: route.description
+  }
+});
+
 const router = createRouter({
   history: createWebHistory(),
   routes

@@ -2,7 +2,7 @@
 export default{
     data(){
         return{
-            nameState: 'Comunidad'
+            nameState: 'Nosotros'
         }
     }, 
     methods:{
@@ -20,10 +20,9 @@ export default{
             {{nameState}}
         </button>
         <ul class="dropdown-menu" style="left: -20px;">
-            <li><RouterLink @click="handleClick('Directos')" class="dropdown-item" to="/directos">Directos</RouterLink></li>
-            <li><RouterLink @click="handleClick('Historias')" class="dropdown-item" to="/historias">Historias</RouterLink></li>
-            <li><RouterLink @click="handleClick('Comunidad')" class="dropdown-item" to="/comunidad">Comunidad</RouterLink></li>
-            <li><RouterLink @click="handleClick('Eventos')" class="dropdown-item" to="/eventos">Eventos</RouterLink></li>
+            <li><RouterLink @click="handleClick('Nosotros')" class="dropdown-item" to="/sobre_nosotros">Nosotros</RouterLink></li>
+            <li><RouterLink @click="handleClick('Contacto')" class="dropdown-item" to="/contacto">Contacto</RouterLink></li>
+            <li><RouterLink @click="handleClick('Reportes')" class="dropdown-item" to="/reportes">Reportes</RouterLink></li>
         </ul>
     </div>
 </template>

@@ -1,18 +1,19 @@
 import HomePageVue from '../views/HomePage.vue';
-import EventsPageVue from '../views/EventsPage.vue';
+import HistoriesPageVue from '../views/HistoriesPage.vue';
 import LoginPageVue from '../views/LoginPage.vue';
 import SalesPageVue from '../views/SalesPage.vue';
 import NewsPageVue from '../views/NewsPage.vue';
 import RegisterPageVue from '../views/RegisterPage.vue';
 import AboutPageVue from '../views/AboutPage.vue';
-import StreamsPageVue from '../views/StreamsPage.vue';
-import HistoriesPageVue from '../views/HistoriesPage.vue';
-import ComunityPageVue from '../views/ComunityPage.vue';
 import SearchPageVue from '../views/SearchPage.vue';
 import PublicationsPageVue from '../views/PublicationsPage.vue';
 import ContactPageVue from '../views/ContactPage.vue';
 import ReportsPageVue from '../views/ReportsPage.vue';
 import IndividualPublicationPageVue from '../views/IndividualPublicationPage.vue';
+import IndividualNewPageVue from '../views/IndividualNewPage.vue';
+import IndividualHistoryPageVue from '../views/IndividualHistoryPage.vue';
+import IndividualMessagePageVue from '../views/IndividualMessagePage.vue';
+import DonatePageVue from '../views/DonatePage.vue';
 
 
 export default [
@@ -20,16 +21,17 @@ export default [
     PublicationsPageVue, 
     NewsPageVue, 
     SalesPageVue, 
+    HistoriesPageVue,
     AboutPageVue, 
     LoginPageVue, 
     RegisterPageVue,
     RegisterPageVue,
-    StreamsPageVue,
-    HistoriesPageVue,
-    ComunityPageVue,
-    EventsPageVue,
     ContactPageVue,
     ReportsPageVue,
     IndividualPublicationPageVue,
+    IndividualNewPageVue,
+    IndividualHistoryPageVue,
+    IndividualMessagePageVue,
+    DonatePageVue,
     SearchPageVue
 ];

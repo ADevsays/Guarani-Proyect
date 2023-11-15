@@ -19,4 +19,10 @@ body {
     font-family: 'Rubik', sans-serif !important;
 }
 
+@media (max-width:992px){
+    .hidden-md{
+        display: none;
+    }
+}
+
 </style>

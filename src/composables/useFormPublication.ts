@@ -7,8 +7,10 @@ import parseToDriveUrl from '../helpers/parseToDriveUrl';
 import { createObjectVirtual } from '../server/services/ObjectVirtual/createObjectVirtual';
 import { validateForm } from '../helpers/validateForm';
 import { editObjectVirtual } from '../server/services/ObjectVirtual/editObjectVirutal';
+import { checkIsURL } from '../helpers/checkIsURL';
+import typesFormPublication from '../consts/typesFormPublication';
 
-export default function useFormPublication(props: { id: string }) {
+export default function useFormPublication(props: { id: string, type: string }) {
     const publicationsStore = usePublications();
     const prevObjVData = {
         title: '',
@@ -16,7 +18,8 @@ export default function useFormPublication(props: { id: string }) {
         place: '',
         format: 'imagen',
         tag: '',
-        url: ''
+        url: '',
+        img: ''
     }
     const token = getToken(tokenName);
     const objVData = ref(prevObjVData);
@@ -24,10 +27,10 @@ export default function useFormPublication(props: { id: string }) {
     const driveUrl = ref('');
 
     onMounted(async () => {
-        if (props.id) {
-            console.log(props.id)
+        if (props.id && props.type != typesFormPublication.EDIT_VR) {
             const result = await getObjectVirtual(props.id);
             const publication = await result?.json();
+            if (!publication) return;
             const keysPublication = Object.keys(publication.digital_object);
             keysPublication.forEach(key => {
                 if (key in objVData.value) {
@@ -61,34 +64,46 @@ export default function useFormPublication(props: { id: string }) {
     };
 
     const createPublication = async () => {
+        objVData.value.img = 'value';
         try {
             if (!validateForm(objVData.value)) {
                 alert('Por favor completa los datos');
                 return;
             };
+            if (!checkIsURL(objVData.value.url)) {
+                alert('Esa no es una URL valida');
+                return;
+            }
             if (!token) return;
             const result = await createObjectVirtual(objVData.value, token);
-            if (result) {
-                const publication = await result.json();
-                const error = await publication.detail;
-                if (!error) {
-                    publicationsStore.addPublication(publication);
-                    return true;
-                }
+            if (!result) return;
+            const publication = await result.json();
+            console.log(publication)
+            const error = await publication.detail;
+            if (!error) {
+                publicationsStore.addPublication(publication);
+                return true;
             }
+
         } catch (error) {
             console.error(error);
         }
     };
 
     const editPublication = async () => {
+        objVData.value.img = 'Value';
         try {
             if (!validateForm(objVData.value)) {
                 alert('Por favor completa los datos');
                 return;
             };
+            if (!checkIsURL(objVData.value.url)) {
+                alert('Esa no es una URL valida');
+                return;
+            }
             if (!token) return;
             if (!props.id) return;
+
             const result = await editObjectVirtual(objVData.value, token, props.id);
             if (result) {
                 const publication = await result.json();
@@ -96,6 +111,17 @@ export default function useFormPublication(props: { id: string }) {
                 if (!error) {
                     publicationsStore.updatePublications(publication);
                     return true;
+                }
+
+            } else {
+                const result = await editObjectVirtual(objVData.value, token, props.id);
+                if (result) {
+                    const publication = await result.json();
+                    const error = await publication.detail;
+                    if (!error) {
+                        publicationsStore.updatePublications(publication);
+                        return true;
+                    }
                 }
             }
         } catch (error) {

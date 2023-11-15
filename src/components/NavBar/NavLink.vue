@@ -1,37 +1,35 @@
 <script lang="ts">
-import DropDown from './DropDown.vue';
 import routes from '../../router/routes';
+import DropDown from './DropDown.vue';
 export default{
-    components:{
-        DropDown
-    },
-    props:{
-        to:{
-            type: String, required:true
+    props: {
+        to: {
+            type: String, required: true
         },
-        name:String    
+        name: String
     },
     emits: ['closeNavBar'],
-    data(){
-        return{
+    data() {
+        return {
             isRoute: false,
-            routeToGetDropDown: routes[3].name
+            routeToGetDropDown: routes[4].name
+        };
+    },
+    watch: {
+        '$route.path': {
+            handler: function (path) {
+                this.isRoute = path == this.to;
+            },
+            deep: true,
+            immediate: true
         }
     },
-   watch:{
-    '$route.path': {
-        handler: function(path) {
-            this.isRoute = path == this.to;
-        },
-        deep: true,
-        immediate: true
-    }
-   },
-   methods:{
-    emitClose(){
-        this.$emit('closeNavBar');
-    }
-   }
+    methods: {
+        emitClose() {
+            this.$emit('closeNavBar');
+        }
+    },
+    components: { DropDown }
 }
 </script>
 
@@ -46,6 +44,7 @@ export default{
         </RouterLink>
     </div>
     <DropDown @closeNavBar="emitClose" v-if="name == routeToGetDropDown" class="ms-2 my-3 dropDown-margin"/>
+
 </template> 
 
 <style>

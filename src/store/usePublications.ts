@@ -9,7 +9,7 @@ export const usePublications = defineStore('allPublications', {
             this.publications = publications;
         },
         addPublication(newPublication:ObjectVirtual){
-            this.publications.push(newPublication);
+            this.publications.unshift(newPublication);
         },
         getAllPublications(){
             return this.publications;

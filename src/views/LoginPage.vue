@@ -22,3 +22,12 @@ import RedirectButton from '../components/Login/RedirectButton.vue';
 </template>
 
 
+<style>
+.bg-test{
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.background-img {
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}</style>

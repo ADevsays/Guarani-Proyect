@@ -66,6 +66,7 @@ const closeNav = () => {
                 <div class="collapse navbar-collapse w-100" ref="navBarCollapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto">
                         <NavLink @closeNavBar="closeNav" v-for="route in routesUse" :to="route.path" :name="route.name"/>
+                        
                         <div @click="closeNav" v-if="thereAreUser" style="height: 60px;" class="d-flex justify-content-center align-items-center">
                             <RouterLink style="min-width: 100px; max-width: 120px;" class="btn p-1 btn-dark w-100" to="/tu_cuenta">Perfil</RouterLink>
                         </div>
