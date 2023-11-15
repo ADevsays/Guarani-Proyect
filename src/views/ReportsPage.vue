@@ -32,6 +32,7 @@ onMounted(()=>{
         <br>
         <FormReports/>
         <h4 class="my-3">Algunos aportes de la comunidad:</h4>
+        <p v-show="suggestionStore.getSuggestions().length <= 0">No hay reportes todavía</p>
         <AllReports :reports="suggestionStore.getSuggestions()"/>
     </main>
 </template>
