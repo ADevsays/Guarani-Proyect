@@ -10,14 +10,14 @@ const searchStore = useSearch();
 const searchResult = ref<SearchData[]>([]);
 onMounted(()=>{
     const {params} = location;
-    const result: SearchData[] = searchStore.searchByQuery(params.id as string);
-    searchResult.value = result;
+    const result = searchStore.searchByQuery(params.id as string);
+    searchResult.value = result as any;
 });
 
 </script>
 <template>
     <main class="p-5 h-100" style="min-height: 100vh;">
         <TitlePage title="Los resultados de tu búsqueda..." text="Buscando en toda nuestra base de datos..." />
-        <SearchResult v-for="search in searchResult" :search="search"/>
+        <SearchResult v-for="search in searchResult" :search="(search as any)"/>
     </main>
 </template>

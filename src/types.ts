@@ -120,10 +120,11 @@ interface Search {
     histories: History[]
 }
 
-type SearchData = (NewData & { type: keyof TypesOfSearchSubtitle }) |
-    (Product & { type: keyof TypesOfSearchSubtitle }) |
-    (ObjectVirtual & { type: keyof TypesOfSearchSubtitle }) |
-    (History & { type: keyof TypesOfSearchSubtitle });
+type SearchData =
+  | (NewData & { type: 'news' })
+  | (Product & { type: 'products' })
+  | (ObjectVirtual & { type: 'publications' })
+  | (History & { type: 'histories' });
 
 interface TypesOfSearchSubtitle {
     products: 'Productos',
