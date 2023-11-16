@@ -6,6 +6,7 @@ import getRepeatElements from '../../helpers/getRepeatElements.ts';
 import getRepeatItemsPaypal from '../../helpers/getRepeatItemsPaypal.ts';
 import { PayPalButtonsComponent, loadScript } from '@paypal/paypal-js';
 import { ref, watch } from 'vue';
+import { paypal_api } from '../../server/url';
 
 const buttonContainer = ref(null as HTMLRef);
 let paypalButtonInstance: PayPalButtonsComponent | undefined;
@@ -16,7 +17,7 @@ const props = defineProps<{
 
 const callPaypalApi = async () => {
     try {
-        const response = await loadScript({ clientId: import.meta.env.VITE_PAYPAL_CREDENTIAL + "&locale=es_ES" })
+        const response = await loadScript({ clientId: `${paypal_api}&locale=es_ES` })
         if (!(window.paypal
             && window.paypal.Buttons
             && buttonContainer.value
