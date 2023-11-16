@@ -87,13 +87,13 @@ const deleteNewFn= async ()=>{
             @delete-publication="deleteNewFn"
         />
         <RouterLink :to="`/noticias/${props.id}`" class="nav-link hover-event-card text-start">
-            <div style="width: 250px; height: auto;" :class="{ 'shadow': !props.isFeatured }">
+            <div style="width: 280px; height: auto;" :class="{ 'shadow': !props.isFeatured }">
                 <div>
                     <img class="w-100 h-100 rounded-top-2 object-fit-cover" style="min-height: 180px;" :src="getImg"
                         :alt="props.title">
                 </div>
                 <div :style="{ 'min-height': props.isFeatured ? '215px' : '140px' }"
-                    class="bg-white text-black position-relative p-2 pb-4 rounded-bottom-3">
+                    class="bg-white text-black position-relative p-2 pb-5 rounded-bottom-3">
                     <span class="d-block py-2" :class="props.classTag">
                         {{ props.tag }}
                     </span>
@@ -104,8 +104,8 @@ const deleteNewFn= async ()=>{
                         {{ getContent }}
                     </p>
                     <hr class="w-100 p-0 m-0">
-                    <span class="w-100 d-block pt-3 position-absolute text-secondary"
-                        style="font-size:12px; bottom: 5px; left: 8px;">{{ props.date }}</span>
+                    <span class="w-100 d-block position-absolute text-secondary"
+                        style="font-size:12px; bottom: 10px; left: 8px;">{{ props.date }}</span>
                 </div>
             </div>
         </RouterLink>

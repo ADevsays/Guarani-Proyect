@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import isMobile from '../helpers/isMobile';
 
 export default function useTHREE(canvasHTML: HTMLCanvasElement, url: string, container: HTMLElement) {
-    
+    console.log(url)
     const width = isMobile('688px') ? (container.clientWidth || window.innerWidth - 20) : window.innerWidth /2 ;
     const height = container.clientHeight || 450;
     if (!canvasHTML) return;

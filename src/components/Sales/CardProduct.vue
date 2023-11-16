@@ -139,10 +139,14 @@ const addToCart=()=>{
 @media (max-width: 656px){
     .card_product{
         width: 100% !important;
-        min-height: 100%; 
+        min-width: 0px !important;
+        min-height: 0px !important;
         background-color: rgb(241, 241, 241);
         display: flex;
         flex-wrap: wrap;
+    }
+    .card_product_first-child{
+        height: auto !important;
     }
     .card_product div:nth-child(2){
         min-width: 100%;

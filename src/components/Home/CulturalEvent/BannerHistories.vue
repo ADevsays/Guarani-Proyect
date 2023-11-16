@@ -10,14 +10,17 @@ const histories = ref<History[]>([]);
 const historiesStore = useAllHistories();
 const searchStore = useSearch();
 
-
-onMounted(async ()=>{
+const setHistories =async()=>{
     const result = await getAllHistories();
     if(!result) return; 
     const allHistories = await result.json();
     historiesStore.setHistories(allHistories);
     searchStore.setAllSearch(allHistories, 'histories');
     histories.value = allHistories.reverse().slice(0,2);
+};
+
+onMounted(()=>{
+    setHistories();
 });
 
 const turnTagsToArray = (tag:string)=>{
@@ -28,6 +31,7 @@ const turnTagsToArray = (tag:string)=>{
 </script>
 <template>
     <h3 style="font-size: 2.5em;" class="fw-bold text-center mt-5">Historias</h3>
+    <p class="text-center" v-show="histories.length <= 0">No hay historias que mostrar...</p>
     <div class="d-flex w-100 flex-wrap justify-content-center p-5 gap-5">
         <HistoriesCard 
                 v-for="history in histories"

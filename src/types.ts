@@ -161,3 +161,13 @@ interface DataToSuggestion{
 interface Suggestion extends DataToSuggestion{
     id:string
 }
+
+interface ItemProductToSendPaypal{
+    name: string;
+    description: string;
+    unit_amount: {
+        value: string;
+        currency_code: string;
+    };
+    quantity: string;
+}[]
