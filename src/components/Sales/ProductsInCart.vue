@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
 import CartModalProduct from './CartModalProduct.vue';
 import checkRepeat from '../../helpers/checkRepeat.ts';
 import getRepeatElements from '../../helpers/getRepeatElements.ts';
-import { ref, watch } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import countOfRepeats from '../../helpers/countOfRepeats.ts';
 import {callPaypalApi, updatePaypalAmount} from '../../server/services/Paypal/callPaypalAPI.ts';
 

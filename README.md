@@ -1,32 +1,94 @@
-# Vue 3 + TypeScript + Vite
+# Nombre del Proyecto
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Descripción breve del proyecto.
 
-## Recommended IDE Setup
+## Requisitos Previos
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- [Node.js](https://nodejs.org/) (v14.x o superior)
+- [npm](https://www.npmjs.com/) (v6.x o superior)
 
-## Type Support For `.vue` Imports in TS
+## Configuración del Proyecto
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Sigue estos pasos para iniciar el proyecto localmente.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+1. **Clona el Repositorio:**
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+   ```bash
+   git clone https://github.com/ADevsays/Guarani-Proyect
+   cd FRONT-END
 
+2. **Instala las dependencias:**
+   ```
+   npm install
+3. **Configura el entorno:**
+   Crea un archivo .env y configura las variables
+4. **Levanta la aplicación:**
+   ```
+   npm run dev
+## Scripts NPM
+   ```
+   npm run dev   
+   npm run build
+   ```
+## API de Paypal
+Guía para integrar el API de PayPal en un proyecto Vue.js con TypeScript. Sigue los pasos a continuación para una implementación exitosa.
 
-##  Uso del API Paypal
-¡Perfecto! Volvamos a este código. Aquí está lo que está sucediendo en cada parte:
+1. ## Instalación
+Asegúrate de tener instaladas las siguientes dependencias en tu proyecto:
 
-createOrder: Esta función se llama cuando el usuario inicia la transacción de pago. Aquí es donde defines los detalles de la transacción, como el monto a pagar.
+```bash
+   npm install @paypal/paypal-js
+```
 
-onApprove: Esta función se llama cuando el usuario aprueba la transacción. Aquí es donde manejas la aprobación del pago. En tu caso, estás capturando la orden y luego mostrando una alerta con el nombre del pagador.
+2. ## Configuración
+2.1 Obtener Credenciales de PayPal
+Obtén credenciales de PayPal creando una aplicación en Developer Dashboard de PayPal.
 
-render: Esta función se utiliza para renderizar el botón de PayPal en el contenedor que especifiques. En tu caso, estás renderizando el botón en un contenedor con el id paypal-button-container.
+2.2 Configuración en el Código
+En tu archivo de integración de PayPal (por ejemplo, paypalIntegration.ts), utiliza el siguiente código como referencia:
 
-Por favor, ten en cuenta que este es un ejemplo básico de cómo puedes configurar el botón de PayPal. Dependiendo de tus necesidades, es posible que quieras personalizar estas funciones para manejar casos más complejos, como múltiples unidades de compra, envío y manejo, impuestos, descuentos, etc.
+``` js
+import { PayPalButtonsComponent, loadScript } from "@paypal/paypal-js";
+import { paypal_api } from "../../url";
+import countOfRepeats from "../../../helpers/countOfRepeats";
+import getRepeatItemsPaypal from "../../../helpers/getRepeatItemsPaypal";
 
-Espero que esto te ayude a entender mejor cómo funciona este código. Si tienes más preguntas, no dudes en preguntar. 😊
+let paypalButtonInstance: PayPalButtonsComponent | undefined;
+
+export const callPaypalApi = async (container: HTMLElement) => {
+    try {
+        const response = await loadScript({ clientId: `${paypal_api}&locale=es_ES` })
+        if (!(window.paypal && window.paypal.Buttons && container && response)) return;
+        updatePaypalAmount('1', [], container);
+    } catch (error) {
+        console.error('Error al cargar el script de PayPal:', error);
+    }
+};
+
+export const updatePaypalAmount = (totalPrice: string, products: Product[], container: HTMLElement) => {
+    // ... (código existente)
+};
+```
+
+1. ## Uso en Componentes Vue.js
+En tu componente Vue.js donde desees integrar PayPal, importa las funciones y úsalas según sea necesario. Por ejemplo:
+
+```html
+<template>
+  <div>
+    <!-- Contenedor donde se renderizarán los botones de PayPal -->
+    <div ref="paypalContainer"></div>
+  </div>
+</template>
+<script setup lang="ts">
+import { ref, watch, computed, onMounted } from 'vue';
+import { callPaypalApi, updatePaypalAmount } from './ruta/a tu /paypalIntegration'; // Actualiza la ruta según tu estructura de archivos
+
+const buttonContainer = ref(null as HTMLRef);
+
+onMounted(() => {
+    callPaypalApi(buttonContainer.value as HTMLElement);
+});
+
+</script>
+```
