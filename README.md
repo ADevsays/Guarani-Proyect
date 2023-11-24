@@ -1,6 +1,6 @@
-# Nombre del Proyecto
+# Pueblo Guaraní
 
-Descripción breve del proyecto.
+Blog para publicar sobre la cultura Guaraní.
 
 ## Requisitos Previos
 
