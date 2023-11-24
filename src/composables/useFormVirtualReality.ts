@@ -38,7 +38,7 @@ export default function useFormVirtualReality() {
 
     const handleSubmit = async (objVData: ObjectVirtual) => {
         const objVRData = { ...objVData } as VirtualReality;
-        objVRData.format = '3D';
+        objVRData.format = 'IMG';
         objVRData.img = file.value;
         try {
             if (!validateForm(objVRData)) {

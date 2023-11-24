@@ -7,10 +7,13 @@ import { onMounted, ref, computed } from 'vue';
 import { getToken, deleteToken } from '../../helpers/saveToken';
 import { getUser } from '../../server/services/User/getUser.ts';
 import {tokenName} from '../../consts/userToken.ts';
+import BurguerIcon from '../SVG/BurguerIcon.vue';
+import ArrowBackIcon from '../SVG/ArrowBackIcon.vue';
 
 const userStore = useSessionUser();
 const navBarCollapse = ref(null as HTMLRef);
 const routesUse = ref(routes.filter(route => route.name));
+const optionsState = ref(false);
 const token = getToken(tokenName) as string;
 
 const thereAreUser = computed(()=>{
@@ -48,12 +51,34 @@ const closeNav = () => {
     navBar?.classList.remove('show');
 };
 
+const openOptions=()=>{
+    optionsState.value = true;
+}
+
+const closeOptions=()=>{
+    optionsState.value = false;
+}
+
 </script>
 <template>
     <header>
+        <div
+            :class="optionsState ? 'openMessage' : 'closeMessage'"
+            style="z-index: 9;"
+            class="position-absolute top-0 px-2 pb-2 start-0 message bg-white h-100 rounded">
+            <button @click="closeOptions" class="btn btn-dark mt-2 p-2 py-0">
+                <span>
+                    <ArrowBackIcon/>
+                </span>
+            </button>
+            <h4 class="mt-2 mb-3">Mensajes de contacto dejados:</h4>
+        </div>
         <nav class="navbar navbar-expand-lg border-bottom p-2 m-0" data-bs-theme="ligth">
             <div class="container-fluid p-0 m-0">
-                <div class="w-100 d-flex justify-content-between">
+                <div class="w-100 d-flex justify-content-">
+                    <button @click="openOptions">
+                        <BurguerIcon/>
+                    </button>
                     <router-link class="ms-2 navbar-brand fw-seminormal w-50 text-wrap" style="max-width: 250px;" to="/">
                         <span class="title-header">ASAMBLEA DEL PUEBLO GUARANI</span>
                     </router-link>
@@ -78,3 +103,22 @@ const closeNav = () => {
     </header>
 </template>
 
+
+<style scoped>
+
+.message{
+    transition: all 0.3s ease;
+    overflow-y: scroll;
+    border: 3px solid #09f;
+    width: 380px;
+}
+.openMessage{
+    transform: translateX(0px);
+    visibility:visible;
+}
+.closeMessage{
+    transform: translateX(-640px);
+    visibility: hidden;
+}
+
+</style>

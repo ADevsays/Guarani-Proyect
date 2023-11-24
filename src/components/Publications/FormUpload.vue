@@ -9,6 +9,7 @@ import CheckBoxList from './CheckBoxList.vue';
 import typesFormPublication from '../../consts/typesFormPublication';
 import Image3dInput from './Image3dInput.vue';
 import ContainerUploadForm from '../ContainerUploadForm.vue';
+import SelectFormat from './SelectFormat.vue';
 import { centerFlex } from '../../consts/communClasses';
 
 const emit = defineEmits(['closeModal']);
@@ -19,12 +20,14 @@ const props = defineProps({
         type: String, requiered: false
     }
 });
+
 const { handleChange,
-    editPublication,
-    createPublication,
-    changeDriveState,
-    isDrive,
-    objVData } = useFormPublication({ id: props.id as string, type: props.type as string });
+        editPublication,
+        createPublication,
+        changeDriveState,
+        handleChangeSelect,
+        isDrive,
+        objVData } = useFormPublication({ id: props.id as string, type: props.type as string });
 
 const { is3DImg,
     change3dState,
@@ -110,8 +113,11 @@ const getShowFormEdit = computed(()=>{
                     placeholder="Escribe tu publicación..." />
             </label>
             <InfoButton type="Publicación" />
-            <InputFormUpload label="Lugar" :value="objVData.place" :handle-change="handleChange" name="place"
-                placeholder="¿Dónde ha sido esto?" />
+            <div class="d-flex justify-content-between align-items-center gap-2">
+                <InputFormUpload label="Lugar" :value="objVData.place" :handle-change="handleChange" name="place"
+                    placeholder="¿Dónde ha sido esto?" />
+                <SelectFormat :handle-change="handleChangeSelect" :value="objVData.format"/>
+            </div>
             <InputFormUpload label="Metadatos" :value="getValueTag" :handle-change="handleChange" name="tag"
                 placeholder="Añade las etiquetas, sepáralas con espacio" />
             <button class="btn btn-primary mt-2 fw-medium">Publicar</button>

@@ -47,7 +47,7 @@ const dataToContact = ref<DataToContact>({
     web: '',
     matter: '',
     consultation:'',
-    message: ''
+    message: '',
 });
 
 const token = getToken(tokenName);
@@ -65,6 +65,7 @@ const handleChange = (e: Event) => {
             dataToContact.value[typeKey] = value;
         }
     }
+    console.log(dataToContact.value)
 };
 const handleSubmit = async () => {
     try {

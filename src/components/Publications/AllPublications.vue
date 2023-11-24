@@ -37,7 +37,8 @@ const handleEditPublication=(value:boolean)=>{
             :place="publication.place"
             :id="String(publication.id)"
             :tags="turnTagsToArray(publication)"
-            :image="getImage(publication.image)"/>
+            :image="getImage(publication.image)"
+            :format="publication.format"/>
         <p v-else>{{getPublications}}</p>
     </div>
 </template>

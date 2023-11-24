@@ -8,6 +8,7 @@ import {onMounted, ref} from 'vue';
 const newsStore = useAllNews();
 const searchStore = useSearch();
 const news = ref([] as NewData[]);
+
 onMounted(async () => {
     const result = await useGetAllNews();
     if (!result) return;

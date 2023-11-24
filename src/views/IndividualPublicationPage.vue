@@ -4,7 +4,7 @@ import { onMounted } from 'vue';
 import { ref, computed } from 'vue';
 import { getObjectVirtual } from '../server/services/ObjectVirtual/getObjectVirtuals.ts';
 import { centerFlex } from '../consts/communClasses';
-import PlaceholderImg from '../imgs/Imagen_Placeholder.webp';
+// import PlaceholderImg from '../imgs/Imagen_Placeholder.webp';
 import AllComments from '../components/Comments/AllComments.vue';
 import ShowContent from '../components/Publications/ShowContent.vue';
 import MetaTag from '../components/Publications/MetaTag.vue';
@@ -13,6 +13,7 @@ import useGetAllUsers from '../composables/useGetAllUsers';
 import { useComments } from '../store/useComments';
 import useSEO from '../helpers/useSEO.ts';
 import Spinner from '../components/Spinner.vue';
+import FormatLector from '../components/Publications/FormatLector.vue';
 
 const commentsStore = useComments();
 const route = useRoute();
@@ -44,11 +45,12 @@ onMounted(async () => {
     getUsers();
 });
 
-const getImg = computed(() => {
-    if (!publication.value.url) return PlaceholderImg;
-    if (isLoadImg.value) return publication.value.url;
-    return PlaceholderImg;
-});
+// const getImg = computed(() => {
+//     console.log(publication.value.url)
+//     if (!publication.value.url) return PlaceholderImg;
+//     if (isLoadImg.value) return publication.value.url;
+//     return PlaceholderImg;
+// });
 
 const getComments = computed(() => {
     if (commentsStore.getComments()) {
@@ -83,8 +85,7 @@ const backRoute = () => {
         <template v-if="isLoadContent && !serverError">
             <h1 class="m-3 text-center">{{ publication.title }}</h1>
             <div class="w-100 m-3">
-                <img class="w-100 h-100 object-fit-contain" :src="getImg" :alt="publication.title"
-                    style="min-height: 300px;">
+                <FormatLector :format="publication.format" :url="publication.url"/>
             </div>
             <div class="mt-4 w-100" style="min-height: 50vh;">
                 <ShowContent v-for="paragraph in getContent" :paragraph="paragraph" />

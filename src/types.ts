@@ -11,6 +11,8 @@ type User = {
     rol: RoleString;
 } | null;
 
+type Format = 'AUDIO' | 'IMG' | 'VIDEO';
+
 interface DataToRegister {
     user_name: string,
     last_name: string,
@@ -45,7 +47,7 @@ interface ObjectVirtual {
     title: string,
     description: string,
     place: string,
-    format: string,
+    format: Format,
     tag: string,
     url: string,
     img?: File | null | string,

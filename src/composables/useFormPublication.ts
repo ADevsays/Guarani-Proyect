@@ -16,7 +16,7 @@ export default function useFormPublication(props: { id: string, type: string }) 
         title: '',
         description: '',
         place: '',
-        format: 'imagen',
+        format: 'IMG',
         tag: '',
         url: '',
         img: ''
@@ -42,7 +42,6 @@ export default function useFormPublication(props: { id: string, type: string }) 
             objVData.value = prevObjVData;
         }
     });
-
 
     const handleChange = (e: Event) => {
         const input = e.target;
@@ -84,7 +83,7 @@ export default function useFormPublication(props: { id: string, type: string }) 
                 publicationsStore.addPublication(publication);
                 return true;
             }
-
+            
         } catch (error) {
             console.error(error);
         }
@@ -142,11 +141,20 @@ export default function useFormPublication(props: { id: string, type: string }) 
         }
     };
 
+    const handleChangeSelect=(e:Event)=>{
+        const select = e.target;
+        if(!(select && select instanceof HTMLSelectElement)) return;
+        const value = select.value;
+        console.log(value);
+        objVData.value['format'] = value;
+    }
+
     return {
         handleChange,
         editPublication,
         createPublication,
         changeDriveState,
+        handleChangeSelect,
         objVData, isDrive, driveUrl
     }
 }

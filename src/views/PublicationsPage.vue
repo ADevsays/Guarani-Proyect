@@ -53,13 +53,14 @@ onMounted(async ()=>{
     const allPublications = await getAllPublications();
     const all3d = await getAllVirtualReality();
     if(all3d){
-        const concatVRPlusPublications = [...allPublications, ...all3d];
+        const reversePublications = allPublications.reverse();
+        const concatVRPlusPublications = [...reversePublications, ...all3d];
         publicationsStore.setAllPublications(concatVRPlusPublications);
     }
     else if(allPublications){
         publicationsStore.setAllPublications(allPublications);
     }
-    loadPublications.value=true;
+    loadPublications.value = true;
     getUsers();
 });
 

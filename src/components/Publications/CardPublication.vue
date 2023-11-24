@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import MetaTag from './MetaTag.vue';
-import PlaceholderImg from '../../imgs/Imagen_Placeholder.webp';
 import { maxLengthContentCardText } from '../../consts/maxLengthContentCardText.ts';
 import { computed, onMounted, ref } from 'vue';
 import loadImg from '../../helpers/loadImg.ts';
@@ -12,6 +11,7 @@ import { getToken } from '../../helpers/saveToken';
 import { tokenName } from '../../consts/userToken';
 import { delete3dObject } from '../../server/services/ObjectVirtual/delete3dObject.ts';
 import typesformPublication from '../../consts/typesFormPublication.ts';
+import mediaPlaceholders from '../../consts/mediaPlaceholders.ts';
 
 const props = defineProps<{
     id: string,
@@ -20,7 +20,8 @@ const props = defineProps<{
     URL: string,
     tags: string[],
     place: string,
-    image?: string
+    image?: string,
+    format: Format
 }>();
 
 const publicationsStore = usePublications();
@@ -30,6 +31,7 @@ const emit = defineEmits(['openEdit']);
 const isLoad = ref(false);
 
 onMounted(() => {
+    console.log(props.format)
     isLoad.value = false;
     if (props.URL) {
         loadImg(props.URL)
@@ -53,9 +55,10 @@ const getPlace = computed(() => {
 });
 
 const getURL = computed(() => {
-    if (!props.URL) return PlaceholderImg;
+    const placeholder = mediaPlaceholders[props.format];
+    if (!props.URL) return placeholder;
     if (isLoad.value) return props.URL;
-    return PlaceholderImg;
+    return placeholder;
 });
 
 const getTags = computed(() => {
