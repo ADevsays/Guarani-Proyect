@@ -33,6 +33,7 @@ const showCard =(type:any)=>{
             :content="publication.description"
             :URL="publication.url"
             :place="publication.place"
+            :format="publication.format"
             :id="String(publication.id)"
             :tags="(turnTagsToArray(publication) as string[])"
             :image="getImage(publication.image)"/>
